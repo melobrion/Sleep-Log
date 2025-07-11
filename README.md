@@ -2,20 +2,80 @@
 
 ## Questions
 
-### 1. What is the average sleep time during this time period?
-
-''''sql
+### 1. How many nights of sleep were recorded?
+````sql
 SELECT count(*) AS n_nights
 FROM SleepLog;
+````
+
+### 2. What time was my earliest bedtime? 
+````sql
+SELECT Date,
+	min(Sleep_time) as earliest_sleep_time,
+	Waking_Time,
+	Sleep_Duration_mins,
+	Sleep_quality,
+	Garminn_score
+FROM SleepLog
+WHERE Sleep_Time < '23:59' AND Sleep_Time >= '18:00';
+````
+
+### 3. What was my latest bedtime?
+````sql
+SELECT Date,
+	max(Sleep_time) as latest_sleep_time,
+	Waking_Time,
+	Sleep_Duration_mins,
+	Sleep_quality,
+	Garminn_score
+FROM SleepLog
+WHERE Sleep_Time < '08:00';
+````
+
+### 4. Finding my waking time distribution.
+````sql
+SELECT CASE
+    WHEN Waking_Time BETWEEN '04:00' AND '05:59' THEN '4am - 5:59am'
+    WHEN Waking_Time BETWEEN '06:00' AND '07:59' THEN '6am - 7:59am'
+    WHEN Waking_Time BETWEEN '08:00' AND '09:59' THEN '8am - 9:59am'
+    WHEN Waking_Time BETWEEN '10:00' AND '11:59' THEN '10am - 11:59am'
+    WHEN Waking_Time BETWEEN '12:00' AND '13:59' THEN '12pm - 1:59pm'
+    ELSE 'Other' 
+  END AS wake_times,
+  COUNT(*) AS count
+FROM SleepLog
+GROUP BY wake_times
+ORDER BY count DESC;
+````
+
+### 5. Finding out the minimum, maximum and average sleep quality.
+````sql
+--Average sleep quality
+SELECT count(*) as nights,
+	min(Sleep_quality),
+	max(Sleep_quality),
+	avg(Sleep_quality)
+FROM SleepLog;
+````
 
 
-### 1. What is the average sleep time during this time period?
+
+
+### 5. What is the average sleep duration? Converted from minutes to hours
 
 ````sql
-SELECT *
+--Average sleep duration
+WITH average_sleep_duration as (
+SELECT avg(Sleep_Duration_mins) as avg_sleep_duration
 FROM SleepLog
-WHERE Sleep_Time BETWEEN  '23:00' AND '23:59';
+)
+SELECT 
+	CAST(avg_sleep_duration / 60 AS INTEGER) || "h" ||
+	CAST(avg_sleep_duration % 60 AS INTEGER) || "m" AS sleep_duration_hrs
+FROM average_sleep_duration;
 ````
+
+
 
 ### 2. How consistent was my bedtime?
 
