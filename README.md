@@ -47,6 +47,7 @@ FROM SleepLog
 GROUP BY wake_times
 ORDER BY count DESC;
 ````
+<img width="223" height="192" alt="DB_Browser_for_SQLite_7t7ZgoNET4" src="https://github.com/user-attachments/assets/4f54983b-b311-4154-b290-97c421192815" />
 
 ### 5. Finding out the minimum, maximum and average sleep quality.
 ````sql
