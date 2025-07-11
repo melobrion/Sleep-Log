@@ -1,6 +1,14 @@
 # Personal Sleep Log and Blood Pressure
 
 ## Questions
+
+### 1. What is the average sleep time during this time period?
+
+''''sql
+SELECT count(*) AS n_nights
+FROM SleepLog;
+
+
 ### 1. What is the average sleep time during this time period?
 
 ````sql
