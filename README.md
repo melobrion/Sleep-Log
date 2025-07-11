@@ -7,30 +7,36 @@
 SELECT count(*) AS n_nights
 FROM SleepLog;
 ````
+<img width="103" height="68" alt="DB_Browser_for_SQLite_oiw94p0L7C" src="https://github.com/user-attachments/assets/4ff1e8ae-02e1-4e24-aa55-56b330f41ca9" />
 
 ### 2. What time was my earliest bedtime? 
 ````sql
 SELECT Date,
 	min(Sleep_time) as earliest_sleep_time,
 	Waking_Time,
-	Sleep_Duration_mins,
-	Sleep_quality,
-	Garminn_score
+	CAST(Sleep_Duration_mins / 60 AS INTEGER) || "h " ||
+	(Sleep_Duration_mins % 60) || "m" AS sleep_duration_hrs,
+	Sleep_score,
+	Garminn_sleep_quality
 FROM SleepLog
 WHERE Sleep_Time < '23:59' AND Sleep_Time >= '18:00';
 ````
+<img width="788" height="65" alt="DB_Browser_for_SQLite_jP00itE3Bj" src="https://github.com/user-attachments/assets/8d4f6fc4-58d3-472f-96c3-a619392177f8" />
 
 ### 3. What was my latest bedtime?
 ````sql
 SELECT Date,
 	max(Sleep_time) as latest_sleep_time,
 	Waking_Time,
-	Sleep_Duration_mins,
-	Sleep_quality,
-	Garminn_score
+	CAST(Sleep_Duration_mins / 60 AS INTEGER) || "h " || 
+	(Sleep_Duration_mins % 60) || "m" AS sleep_duration_hrs,
+	Sleep_score,
+	Garminn_sleep_quality
 FROM SleepLog
 WHERE Sleep_Time < '08:00';
 ````
+<img width="778" height="63" alt="DB_Browser_for_SQLite_B9EM6W7fQs" src="https://github.com/user-attachments/assets/8e25c680-f40a-458e-91d4-de3232a8b8ea" />
+
 
 ### 4. Finding my waking time distribution.
 ````sql
