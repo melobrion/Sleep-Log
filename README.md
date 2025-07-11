@@ -57,18 +57,18 @@ ORDER BY count DESC;
 
 ### 5. Finding out the minimum, maximum and average sleep quality.
 ````sql
---Average sleep quality
 SELECT count(*) as nights,
-	min(Sleep_quality),
-	max(Sleep_quality),
-	avg(Sleep_quality)
+	min(Sleep_score) as minimum_sleep_score,
+	max(Sleep_score) as maximum_sleep_score,
+	avg(Sleep_score) as average_sleep_score
 FROM SleepLog;
 ````
 
+<img width="565" height="66" alt="DB_Browser_for_SQLite_3y2mVPkhfU" src="https://github.com/user-attachments/assets/ea9169db-9ead-434d-9ffe-97086143f420" />
 
 
 
-### 5. What is the average sleep duration? Converted from minutes to hours
+### 6. What is the average sleep duration? Converted from minutes to hours
 
 ````sql
 --Average sleep duration
@@ -81,38 +81,25 @@ SELECT
 	CAST(avg_sleep_duration % 60 AS INTEGER) || "m" AS sleep_duration_hrs
 FROM average_sleep_duration;
 ````
+<img width="166" height="59" alt="DB_Browser_for_SQLite_EmNPtmCGJ9" src="https://github.com/user-attachments/assets/d20264ba-3ec2-45d7-8bbf-959c99174613" />
 
 
 
-### 2. How consistent was my bedtime?
+### 7. Blood pressure and Pulse pressure averages.
 
 
 ````sql
-SELECT *
-FROM SleepLog
-WHERE Sleep_Time BETWEEN  '23:00' AND '23:59';
-
-SELECT
-    AVG((strftime('%H', Sleep_Time) * 60 + strftime('%M', Sleep_Time))) AS avg_time,
-    AVG((strftime('%H', Sleep_Time) * 60 + strftime('%M', Sleep_Time)) *
-        (strftime('%H', Sleep_Time) * 60 + strftime('%M', Sleep_Time))) -
-    AVG((strftime('%H', Sleep_Time) * 60 + strftime('%M', Sleep_Time))) *
-    AVG((strftime('%H', Sleep_Time) * 60 + strftime('%M', Sleep_Time))) AS variance_time
-FROM SleepLog;
-````
-
+-- average blood pressure
 SELECT count(*) as n_nights,
-	avg(Quality_of_Sleep) as avg_sleep_score,
 	avg(Systolic) as avg_systolic,
 	avg(Diastolic) as avg_diastolic,
 	avg(Pulse_Pressure) as avg_pulse_pressure
 FROM SleepLog;
+````
+<img width="445" height="62" alt="DB_Browser_for_SQLite_KUSidLQQRs" src="https://github.com/user-attachments/assets/1ccbb6d2-2271-4301-aa1d-0591fec5835a" />
 
 
-SELECT Garminn_Sleep_Score,
-	count(*) as sleep_count
-FROM SleepLog
-GROUP BY Garminn_Sleep_Score;
+
 
 
 
