@@ -1,5 +1,17 @@
 # Personal Sleep Log and Blood Pressure
 
+
+
+<img width="1920" height="1080" alt="Sleep time" src="https://github.com/user-attachments/assets/0785f9ee-7aa7-4d9f-b8c8-03377116f719" />
+
+
+
+<img width="1920" height="1080" alt="Duration vs Blood Pressure" src="https://github.com/user-attachments/assets/68708134-bdff-46a1-a72f-92cd33c3c311" />
+
+<img width="12" height="561" alt="PBIDesktop_02WzU33inc" src="https://github.com/user-attachments/assets/5bfd84fd-7496-49e5-8cd1-febab050f64a" />
+
+
+
 ## Questions
 
 ### 1. How many nights of sleep were recorded?
@@ -55,7 +67,41 @@ ORDER BY count DESC;
 ````
 <img width="223" height="192" alt="DB_Browser_for_SQLite_7t7ZgoNET4" src="https://github.com/user-attachments/assets/4f54983b-b311-4154-b290-97c421192815" />
 
-### 5. Finding out the minimum, maximum and average sleep quality.
+
+
+
+
+### 5. Sleep time distribution with sleep score and blood pressure averages.
+
+````sql
+-- Sleep window distribution
+SELECT 
+	CASE 
+		WHEN Sleep_Time BETWEEN '18:00' AND '21:59' THEN "before 10pm"
+		WHEN Sleep_Time BETWEEN '22:00' AND '22:59'  THEN "10pm to 10:59pm"
+		WHEN Sleep_Time BETWEEN '23:00' AND '23:59'  THEN "11pm to 11:59pm"
+		WHEN Sleep_Time BETWEEN '00:00' AND '00:59'  THEN "12am to 12:59am"
+		WHEN Sleep_Time BETWEEN '01:00' AND '01:59'  THEN "1am to 1:59am"
+		WHEN Sleep_Time >= '02:00' THEN "after 2am"
+	ELSE "Other" 
+	END AS sleep_window,
+	count(*) AS count,
+	round(avg(Sleep_Duration_mins)) AS avg_sleep_duration,
+	round(avg(Sleep_score)) AS avg_sleep_score,
+	round(avg(systolic)) AS avg_systolic,
+	round(avg(Diastolic)) AS avg_diastolic,
+	round(avg(Pulse_Pressure)) AS avg_pulse_pressure
+FROM SleepLog
+GROUP BY sleep_window;
+````
+
+<img width="849" height="190" alt="DB_Browser_for_SQLite_CC3bGDQ6sD" src="https://github.com/user-attachments/assets/5e93b9a0-3e15-4ea1-af8f-88d7fb0d13f5" />
+
+
+
+
+
+### 6. Finding out the minimum, maximum and average sleep quality.
 ````sql
 SELECT count(*) as nights,
 	min(Sleep_score) as minimum_sleep_score,
@@ -67,8 +113,7 @@ FROM SleepLog;
 <img width="565" height="66" alt="DB_Browser_for_SQLite_3y2mVPkhfU" src="https://github.com/user-attachments/assets/ea9169db-9ead-434d-9ffe-97086143f420" />
 
 
-
-### 6. What is the average sleep duration? Converted from minutes to hours
+### 7. What is the average sleep duration? Converted from minutes to hours.
 
 ````sql
 --Average sleep duration
@@ -85,7 +130,7 @@ FROM average_sleep_duration;
 
 
 
-### 7. Blood pressure and Pulse pressure averages.
+### 8. Blood pressure and Pulse pressure averages.
 
 
 ````sql
