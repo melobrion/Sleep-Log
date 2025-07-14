@@ -1,18 +1,48 @@
 # Personal Sleep Log and Blood Pressure
 
+## PowerBi Charts
+
+**Late and inconsistent sleep patterns during this time period.**
+- My earliest sleep time was 22:19pm and the latest was 04:38am.
+- My average sleep time was 01:25am.
+
+  
+<div align="center">
+  <img width="1000" alt="Sleep time from 15th April to 25th May" src="https://github.com/user-attachments/assets/0785f9ee-7aa7-4d9f-b8c8-03377116f719" />
+</div>
+
+---
+
+**Garmin smartwatch sleep score.**
+- Garmin has 4 sleep scores: Poor, Fair, Good, and Excellent.
+- 62.5% of my sleep was rated **Fair**.
+- I did not achieve an **Excellent** score during this time period.
+- These scores __may__ reflect poor sleep patterns (late/inconsistent sleep), and possibly stress during the day.
 
 
-<img width="1920" height="1080" alt="Sleep time" src="https://github.com/user-attachments/assets/0785f9ee-7aa7-4d9f-b8c8-03377116f719" />
+<div align="center">
+  <img width="500" alt="PBIDesktop_02WzU33inc" src="https://github.com/user-attachments/assets/5bfd84fd-7496-49e5-8cd1-febab050f64a" />
+</div>
+
+---
+
+**Does sleep duration influence blood pressure?**
+- The correlation between sleep duration and blood pressure in my data was not significant.
+- R² value for **Systolic pressure**: `0.0283` → Only ~2.8% of the variation is explained by sleep duration.
+- R² value for **Diastolic pressure**: `0.055` → Only ~5.5% of the variation is explained by sleep duration.
+- This analysis could be improved with more data and with the used of more accurate medical devices for sleep tracking.
 
 
 
-<img width="1920" height="1080" alt="Duration vs Blood Pressure" src="https://github.com/user-attachments/assets/68708134-bdff-46a1-a72f-92cd33c3c311" />
+<div align="center">
+  <img width="1000" alt="Duration vs Blood Pressure" src="https://github.com/user-attachments/assets/68708134-bdff-46a1-a72f-92cd33c3c311" />
+</div>
 
-<img width="12" height="561" alt="PBIDesktop_02WzU33inc" src="https://github.com/user-attachments/assets/5bfd84fd-7496-49e5-8cd1-febab050f64a" />
+---
 
 
 
-## Questions
+## SQL
 
 ### 1. How many nights of sleep were recorded?
 ````sql
@@ -22,6 +52,7 @@ FROM SleepLog;
 <img width="103" height="68" alt="DB_Browser_for_SQLite_oiw94p0L7C" src="https://github.com/user-attachments/assets/4ff1e8ae-02e1-4e24-aa55-56b330f41ca9" />
 
 ### 2. What time was my earliest bedtime? 
+
 ````sql
 SELECT Date,
 	min(Sleep_time) as earliest_sleep_time,
