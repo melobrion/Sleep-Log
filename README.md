@@ -55,7 +55,7 @@ FROM SleepLog;
 
 ````sql
 SELECT Date,
-	min(Sleep_time) as earliest_sleep_time,
+	min(Sleep_time) AS earliest_sleep_time,
 	Waking_Time,
 	CAST(Sleep_Duration_mins / 60 AS INTEGER) || "h " ||
 	(Sleep_Duration_mins % 60) || "m" AS sleep_duration_hrs,
@@ -69,7 +69,7 @@ WHERE Sleep_Time < '23:59' AND Sleep_Time >= '18:00';
 ### 3. What was my latest bedtime?
 ````sql
 SELECT Date,
-	max(Sleep_time) as latest_sleep_time,
+	max(Sleep_time) AS latest_sleep_time,
 	Waking_Time,
 	CAST(Sleep_Duration_mins / 60 AS INTEGER) || "h " || 
 	(Sleep_Duration_mins % 60) || "m" AS sleep_duration_hrs,
@@ -134,10 +134,10 @@ GROUP BY sleep_window;
 
 ### 6. Finding out the minimum, maximum and average sleep quality.
 ````sql
-SELECT count(*) as nights,
-	min(Sleep_score) as minimum_sleep_score,
-	max(Sleep_score) as maximum_sleep_score,
-	avg(Sleep_score) as average_sleep_score
+SELECT count(*) AS nights,
+	min(Sleep_score) AS minimum_sleep_score,
+	max(Sleep_score) AS maximum_sleep_score,
+	avg(Sleep_score) AS average_sleep_score
 FROM SleepLog;
 ````
 
@@ -148,8 +148,8 @@ FROM SleepLog;
 
 ````sql
 --Average sleep duration
-WITH average_sleep_duration as (
-SELECT avg(Sleep_Duration_mins) as avg_sleep_duration
+WITH average_sleep_duration AS (
+SELECT avg(Sleep_Duration_mins) AS avg_sleep_duration
 FROM SleepLog
 )
 SELECT 
@@ -166,10 +166,10 @@ FROM average_sleep_duration;
 
 ````sql
 -- average blood pressure
-SELECT count(*) as n_nights,
-	avg(Systolic) as avg_systolic,
-	avg(Diastolic) as avg_diastolic,
-	avg(Pulse_Pressure) as avg_pulse_pressure
+SELECT count(*) AS n_nights,
+	avg(Systolic) AS avg_systolic,
+	avg(Diastolic) AS avg_diastolic,
+	avg(Pulse_Pressure) AS avg_pulse_pressure
 FROM SleepLog;
 ````
 <img width="445" height="62" alt="DB_Browser_for_SQLite_KUSidLQQRs" src="https://github.com/user-attachments/assets/1ccbb6d2-2271-4301-aa1d-0591fec5835a" />
