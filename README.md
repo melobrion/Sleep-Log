@@ -35,7 +35,7 @@
 
 
 <div align="center">
-  <img width="1000" alt="Duration vs Blood Pressure" src="https://github.com/user-attachments/assets/68708134-bdff-46a1-a72f-92cd33c3c311" />
+  <img width="1000" alt="8pm" src="https://github.com/user-attachments/assets/05180f2b-ba0f-48cd-9b08-3897d84ca841" />
 </div>
 
 ---
